@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-j%ce%$t#3mq+&cid0yy*y*t82ure#9gsr*z)2_sb%bptpk!wp2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*.onrender.com"]
 
 
 # Application definition
@@ -155,9 +155,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5173",
+    "https://ngofoodwebsite.vercel.app",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
+    "https://ngofoodwebsite.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
