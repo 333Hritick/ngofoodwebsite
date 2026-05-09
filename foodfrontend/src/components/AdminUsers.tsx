@@ -15,7 +15,7 @@ useEffect(()=>{
 const fetchUsers = async ()=>{
 
  const res = await axios.get(
-   "http://localhost:8000/api/admin-api/users/",
+   "https://ngofoodwebsite.onrender.com/api/admin-api/users/",
    {
      headers:{
        Authorization:`Bearer ${localStorage.getItem("adminToken")}`

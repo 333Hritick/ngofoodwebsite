@@ -34,7 +34,7 @@ export default function Contact() {
     setError("");
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/auth/contact-us/", formData);
+      const response = await axios.post("https://ngofoodwebsite.onrender.com/api/auth/contact-us/", formData);
 
       console.log(response.data);
 

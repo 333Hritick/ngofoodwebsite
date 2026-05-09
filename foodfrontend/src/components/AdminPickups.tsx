@@ -16,7 +16,7 @@ useEffect(()=>{
 const fetchPickups = async ()=>{
 
  const res = await axios.get(
-   "http://localhost:8000/api/admin-api/pickups/",
+   "https://ngofoodwebsite.onrender.com/api/admin-api/pickups/",
    {
      headers:{
        Authorization:`Bearer ${localStorage.getItem("adminToken")}`

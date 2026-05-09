@@ -10,7 +10,7 @@ export default function AdminVolunteerPanel() {
   const fetchVolunteers = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/admin-api/volunteers/",
+        "https://ngofoodwebsite.onrender.com/api/admin-api/volunteers/",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
@@ -41,7 +41,7 @@ export default function AdminVolunteerPanel() {
   ) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/admin-api/volunteers/${id}/status/`,
+        `https://ngofoodwebsite.onrender.com/api/admin-api/volunteers/${id}/status/`,
         {
           method: "PATCH",
           headers: {

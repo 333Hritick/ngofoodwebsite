@@ -18,7 +18,7 @@ export default function AdminAuth({ onClose }: AdminAuthProps) {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/admin-api/login/",
+        "https://ngofoodwebsite.onrender.com/api/admin-api/login/",
         {
           username,
           password,

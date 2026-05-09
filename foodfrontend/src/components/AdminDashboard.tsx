@@ -64,7 +64,7 @@ export default function AdminDashboard() {
   const fetchStats = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8000/api/admin-api/stats/",
+        "https://ngofoodwebsite.onrender.com/api/admin-api/stats/",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -86,7 +86,7 @@ export default function AdminDashboard() {
   const fetchNGOs = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8000/api/admin-api/ngos/",
+        "https://ngofoodwebsite.onrender.com/api/admin-api/ngos/",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -103,7 +103,7 @@ export default function AdminDashboard() {
   const approveNGO = async (id: number) => {
     try {
       await axios.post(
-        `http://localhost:8000/api/admin-api/ngos/${id}/approve/`,
+        `https://ngofoodwebsite.onrender.com/api/admin-api/ngos/${id}/approve/`,
         {},
         {
           headers: {
@@ -123,7 +123,7 @@ export default function AdminDashboard() {
   const rejectNGO = async (id: number) => {
     try {
       await axios.post(
-        `http://localhost:8000/api/admin-api/ngos/${id}/reject/`,
+        `https://ngofoodwebsite.onrender.com/api/admin-api/ngos/${id}/reject/`,
         {},
         {
           headers: {

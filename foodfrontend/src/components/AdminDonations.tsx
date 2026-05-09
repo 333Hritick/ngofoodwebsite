@@ -16,7 +16,7 @@ const fetchDonations = async ()=>{
  try{
 
   const res = await axios.get(
-    "http://localhost:8000/api/admin-api/donations/",
+    "https://ngofoodwebsite.onrender.com/api/admin-api/donations/",
     {
       headers:{
         Authorization:`Bearer ${localStorage.getItem("adminToken")}`
