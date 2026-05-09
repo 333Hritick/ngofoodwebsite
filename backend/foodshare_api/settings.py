@@ -60,10 +60,10 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -156,11 +156,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5173",
-    "https://ngofoodwebsite.vercel.app",
+    "https://ngofoodwebsite-git-main-hritick-kumars-projects.vercel.app",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
-    "https://ngofoodwebsite.vercel.app",
+    "https://ngofoodwebsite-git-main-hritick-kumars-projects.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -194,6 +194,3 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
 
-CORS_ALLOWED_ORIGINS = [
-    "https://ngofoodwebsite-git-main-hritick-kumars-projects.vercel.app",
-]
