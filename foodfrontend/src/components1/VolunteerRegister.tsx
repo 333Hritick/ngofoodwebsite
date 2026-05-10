@@ -49,6 +49,7 @@ if (idProof) {
       setIdProof(null);
     } catch (err) {
       console.error("Volunteer registration failed", err);
+       console.log(err.response?.data);
       alert("Failed to send volunteer request ❌");
     } finally {
       setLoading(false);

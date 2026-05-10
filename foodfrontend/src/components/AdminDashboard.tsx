@@ -354,10 +354,10 @@ export default function AdminDashboard() {
           ? selectedNGO.registration_certificate.startsWith("http")
             ? selectedNGO.registration_certificate
             : selectedNGO.registration_certificate.startsWith("/media/")
-            ? `http://localhost:8000${selectedNGO.registration_certificate}`
+            ? `https://ngofoodwebsite.onrender.com${selectedNGO.registration_certificate}`
             : selectedNGO.registration_certificate.startsWith("/ngo_docs/")
-            ? `http://localhost:8000/media${selectedNGO.registration_certificate}`
-            : `http://localhost:8000/media/${selectedNGO.registration_certificate}`
+            ? `https://ngofoodwebsite.onrender.com/media${selectedNGO.registration_certificate}`
+            : `https://ngofoodwebsite.onrender.com/media/${selectedNGO.registration_certificate}`
           : null;
 
         return (

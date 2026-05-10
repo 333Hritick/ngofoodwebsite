@@ -7,7 +7,7 @@ Your React frontend is now fully connected to the Django backend. All Supabase d
 ## Changes Made
 
 ### 1. **API Client** (`src/lib/api.ts`)
-- Created axios instance with base URL: `http://localhost:8000/api`
+- Created axios instance with base URL: `https://ngofoodwebsite.onrender.com/api`
 - Added request interceptor to attach JWT tokens
 - Added response interceptor for automatic token refresh
 - Handles 401 errors and redirects to login when needed
@@ -55,7 +55,7 @@ cd backend
 venv\Scripts\activate
 python manage.py runserver
 ```
-Backend runs at: `http://localhost:8000`
+Backend runs at: `https://ngofoodwebsite.onrender.com`
 
 ### 2. Start Frontend
 ```bash

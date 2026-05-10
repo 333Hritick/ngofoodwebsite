@@ -155,7 +155,7 @@ export default function AdminVolunteerPanel() {
                 {volunteer.id_proof && (
                   <div className="mt-4">
                     <a
-                      href={`http://127.0.0.1:8000${volunteer.id_proof}`}
+                      href={`https://ngofoodwebsite.onrender.com${volunteer.id_proof}`}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-block rounded-xl bg-blue-100 px-4 py-2 text-sm font-medium text-blue-700 transition hover:bg-blue-200"

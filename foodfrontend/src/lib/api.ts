@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://ngofoodwebsite.onrender.com/api",
 });
 
 // ✅ Add access token to every request
@@ -38,7 +38,7 @@ api.interceptors.response.use(
         }
 
         const response = await axios.post(
-          "http://localhost:8000/api/auth/refresh/",
+          "https://ngofoodwebsite.onrender.com/api/auth/refresh/",
           {
             refresh: refreshToken,
           }
