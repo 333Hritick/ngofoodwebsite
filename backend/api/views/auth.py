@@ -172,37 +172,47 @@ class VolunteerRegisterView(APIView):
 
     def post(self, request):
 
-        user, created = User.objects.get_or_create(
-            email=request.data.get("email"),
-            defaults={
-                "username": request.data.get("email"),
-                "full_name": request.data.get("name"),
-                "role": "volunteer"
-            }
-        )
+        try:
+            user, created = User.objects.get_or_create(
+                email=request.data.get("email"),
+                defaults={
+                    "username": request.data.get("email"),
+                    "full_name": request.data.get("name"),
+                    "role": "volunteer"
+                }
+            )
 
-        if created:
-            user.set_password("temp12345")
-            user.save()
+            if created:
+                user.set_password("temp12345")
+                user.save()
 
-        volunteer_profile, created = VolunteerProfile.objects.get_or_create(
-            user=user
-        )
+            volunteer_profile, created = VolunteerProfile.objects.get_or_create(
+                user=user
+            )
 
-        volunteer_profile.is_volunteer = True
-        volunteer_profile.volunteer_status = "pending"
-        volunteer_profile.name = request.data.get("name")
-        volunteer_profile.email = request.data.get("email")
-        volunteer_profile.phone = request.data.get("phone")
-        volunteer_profile.city = request.data.get("city")
-        volunteer_profile.availability = request.data.get("availability")
+            volunteer_profile.is_volunteer = True
+            volunteer_profile.volunteer_status = "pending"
+            volunteer_profile.name = request.data.get("name")
+            volunteer_profile.email = request.data.get("email")
+            volunteer_profile.phone = request.data.get("phone")
+            volunteer_profile.city = request.data.get("city")
+            volunteer_profile.availability = request.data.get("availability")
 
-        if request.FILES.get("id_proof"):
-            volunteer_profile.id_proof = request.FILES.get("id_proof")
+            if request.FILES.get("id_proof"):
+                volunteer_profile.id_proof = request.FILES.get("id_proof")
 
-        volunteer_profile.save()
+            volunteer_profile.save()
 
-        return Response(
-            {"message": "Volunteer request submitted successfully"},
-            status=status.HTTP_201_CREATED
-        )
+            return Response(
+                {"message": "Volunteer request submitted successfully"},
+                status=status.HTTP_201_CREATED
+            )
+
+        except Exception as e:
+            import traceback
+            print(traceback.format_exc())
+
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
