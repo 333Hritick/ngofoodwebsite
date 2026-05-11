@@ -341,7 +341,7 @@ python manage.py createsuperuser
 ```
 
 ### Access Admin Panel
-Visit `http://localhost:8000/admin/` and login with superuser credentials
+Visit `https://ngofoodwebsite.onrender.com/admin/` and login with superuser credentials
 
 ### Database
 Development uses SQLite (`db.sqlite3`)

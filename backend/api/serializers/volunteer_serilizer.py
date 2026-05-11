@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from api.models import User
+from api.models import User, VolunteerProfile
 
 class VolunteerRegisterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = VolunteerProfile
         fields = [
             'name',
             'email',

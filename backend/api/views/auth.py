@@ -171,12 +171,19 @@ class VolunteerRegisterView(APIView):
     authentication_classes = []
 
     def post(self, request):
+
         user, created = User.objects.get_or_create(
             email=request.data.get("email"),
             defaults={
-                "username": request.data.get("email")
+                "username": request.data.get("email"),
+                "full_name": request.data.get("name"),
+                "role": "volunteer"
             }
         )
+
+        if created:
+            user.set_password("temp12345")
+            user.save()
 
         volunteer_profile, created = VolunteerProfile.objects.get_or_create(
             user=user

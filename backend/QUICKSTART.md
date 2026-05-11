@@ -13,13 +13,13 @@ venv\Scripts\activate
 python manage.py runserver
 ```
 
-Server will be running at: `http://localhost:8000/api/`
+Server will be running at: `https://ngofoodwebsite.onrender.com/api/`
 
 ## Testing the API
 
 ### 1. Register a Donor
 ```bash
-POST http://localhost:8000/api/auth/register
+POST https://ngofoodwebsite.onrender.com/api/auth/register
 Content-Type: application/json
 
 {
@@ -34,7 +34,7 @@ Content-Type: application/json
 
 ### 2. Register an NGO
 ```bash
-POST http://localhost:8000/api/auth/register
+POST https://ngofoodwebsite.onrender.com/api/auth/register
 Content-Type: application/json
 
 {
@@ -50,7 +50,7 @@ Content-Type: application/json
 
 ### 3. Login
 ```bash
-POST http://localhost:8000/api/auth/login
+POST https://ngofoodwebsite.onrender.com/api/auth/login
 Content-Type: application/json
 
 {
@@ -63,7 +63,7 @@ Save the `access` token from the response!
 
 ### 4. Create a Donation (as Donor)
 ```bash
-POST http://localhost:8000/api/donations
+POST https://ngofoodwebsite.onrender.com/api/donations
 Authorization: Bearer YOUR_ACCESS_TOKEN
 Content-Type: application/json
 
@@ -79,13 +79,13 @@ Content-Type: application/json
 
 ### 5. View Available Donations (as NGO)
 ```bash
-GET http://localhost:8000/api/donations/available
+GET https://ngofoodwebsite.onrender.com/api/donations/available
 Authorization: Bearer YOUR_NGO_ACCESS_TOKEN
 ```
 
 ### 6. Claim Donation (as NGO)
 ```bash
-POST http://localhost:8000/api/pickups/claim
+POST https://ngofoodwebsite.onrender.com/api/pickups/claim
 Authorization: Bearer YOUR_NGO_ACCESS_TOKEN
 Content-Type: application/json
 
@@ -96,7 +96,7 @@ Content-Type: application/json
 
 ### 7. Update Status (as NGO)
 ```bash
-POST http://localhost:8000/api/tracking/update
+POST https://ngofoodwebsite.onrender.com/api/tracking/update
 Authorization: Bearer YOUR_NGO_ACCESS_TOKEN
 Content-Type: application/json
 
@@ -109,7 +109,7 @@ Content-Type: application/json
 
 ### 8. Track Donation
 ```bash
-GET http://localhost:8000/api/tracking/1
+GET https://ngofoodwebsite.onrender.com/api/tracking/1
 Authorization: Bearer YOUR_ACCESS_TOKEN
 ```
 
@@ -126,7 +126,7 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
 python manage.py createsuperuser
 ```
 
-2. Access at: `http://localhost:8000/admin/`
+2. Access at: `https://ngofoodwebsite.onrender.com/admin/`
 
 ## Troubleshooting
 
@@ -150,6 +150,6 @@ python manage.py createsuperuser
 ## Next Steps
 
 1. Connect your React frontend to these endpoints
-2. Update axios base URL to `http://localhost:8000/api/`
+2. Update axios base URL to `https://ngofoodwebsite.onrender.com/api/`
 3. Store JWT tokens in localStorage or cookies
 4. Add token to all API requests in Authorization header
