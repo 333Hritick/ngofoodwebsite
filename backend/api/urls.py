@@ -29,7 +29,7 @@ urlpatterns = [
     path('auth/refresh', RefreshTokenView.as_view(), name='token_refresh'),
     path('auth/me', CurrentUserView.as_view(), name='current_user'),
     path('auth/contact-us/', contactUsView.as_view(), name='contact_us'),
-    path('volunteer/register/', RegisterView.as_view(), name='register'),
+    path("volunteer/register/", VolunteerRegisterView.as_view())
     # Profile endpoints
     path('profile', ProfileView.as_view(), name='profile'),
     
