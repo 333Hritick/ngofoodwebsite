@@ -75,7 +75,7 @@ class ClaimDonationView(APIView):
         )
 
         # ✅ Send OTP to donor
-        send_mail(
+        '''send_mail(
     subject="FoodShare Pickup OTP Verification",
     message=f"""
 Hello,
@@ -92,7 +92,7 @@ FoodShare Team
     from_email=settings.EMAIL_HOST_USER,
     recipient_list=[donation.donor.email],
     fail_silently=False
-)
+)'''
 
         # ✅ Tracking
         ngo_profile = getattr(request.user, "profile", None)
