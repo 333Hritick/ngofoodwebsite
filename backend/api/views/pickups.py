@@ -1,5 +1,5 @@
 from rest_framework import viewsets, status
-from rest_framework.views import APIView
+from rest_framework.views import APIView, settings
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.db import transaction
@@ -76,12 +76,23 @@ class ClaimDonationView(APIView):
 
         # ✅ Send OTP to donor
         send_mail(
-            subject="FoodShare Pickup OTP",
-            message=f"Your OTP for pickup is: {otp}",
-            from_email="noreply@foodshare.com",
-            recipient_list=[donation.donor.email],
-            fail_silently=True
-        )
+    subject="FoodShare Pickup OTP Verification",
+    message=f"""
+Hello,
+
+Your FoodShare pickup verification OTP is:
+
+{otp}
+
+Please share this OTP with NGO only after food pickup.
+
+Thank you,
+FoodShare Team
+""",
+    from_email=settings.EMAIL_HOST_USER,
+    recipient_list=[donation.donor.email],
+    fail_silently=False
+)
 
         # ✅ Tracking
         ngo_profile = getattr(request.user, "profile", None)
