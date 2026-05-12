@@ -1,13 +1,14 @@
 from rest_framework import viewsets, status
-from rest_framework.views import APIView, settings
+from rest_framework.views import APIView
+from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.db import transaction
 from api.models import Pickup, FoodDonation, TrackingUpdate
 from api.serializers import PickupSerializer
 from api.permissions import IsNGO
-import random
 from django.core.mail import send_mail
+import random
 
 
 # =========================
