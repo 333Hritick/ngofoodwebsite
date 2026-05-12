@@ -304,4 +304,4 @@ const loadAvailableDonations = async () => {
       />
     )}
   </div>
-);
+);}
