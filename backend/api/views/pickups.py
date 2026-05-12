@@ -116,7 +116,7 @@ FoodShare Team
 """,
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[donation.donor.email],
-                fail_silently=False
+                fail_silently=True
             )
 
             print("SEND MAIL RESULT:", result)
