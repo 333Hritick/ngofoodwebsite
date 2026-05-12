@@ -75,24 +75,19 @@ class ClaimDonationView(APIView):
         )
 
         # ✅ Send OTP to donor
-        '''send_mail(
-    subject="FoodShare Pickup OTP Verification",
-    message=f"""
-Hello,
+        try:
+            send_mail(
+                subject="FoodShare Pickup OTP",
+                message=f"Your OTP for pickup is: {otp}",
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[donation.donor.email],
+                fail_silently=False
+            )
 
-Your FoodShare pickup verification OTP is:
+            print("EMAIL SENT SUCCESSFULLY")
 
-{otp}
-
-Please share this OTP with NGO only after food pickup.
-
-Thank you,
-FoodShare Team
-""",
-    from_email=settings.EMAIL_HOST_USER,
-    recipient_list=[donation.donor.email],
-    fail_silently=False
-)'''
+        except Exception as e:
+            print("EMAIL ERROR:", str(e))
 
         # ✅ Tracking
         ngo_profile = getattr(request.user, "profile", None)
