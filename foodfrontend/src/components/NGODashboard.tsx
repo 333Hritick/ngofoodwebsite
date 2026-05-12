@@ -97,145 +97,211 @@ const loadAvailableDonations = async () => {
 };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+  <div className="min-h-screen bg-gray-50">
 
-      {/* NAVBAR */}
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between">
-          <div>
-            <h1 className="text-2xl font-bold">Food Share</h1>
-            <p className="text-sm text-gray-600">
-              {user?.profile?.organization_name || user?.profile?.full_name}
-            </p>
-          </div>
-          <button onClick={() => signOut()}>Sign Out</button>
+    {/* NAVBAR */}
+    <nav className="bg-white shadow-sm border-b">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+        <div>
+          <h1 className="text-xl sm:text-2xl font-bold">Food Share</h1>
+
+          <p className="text-sm text-gray-600 break-words">
+            {user?.profile?.organization_name || user?.profile?.full_name}
+          </p>
         </div>
-      </nav>
-
-      <div className="max-w-7xl mx-auto px-4 py-8">
-
-        {/* TABS */}
-        <div className="mb-6 border-b">
-          <nav className="flex gap-8">
-            <button onClick={() => setActiveTab('available')}>
-              Available Donations
-            </button>
-            <button onClick={() => setActiveTab('my-pickups')}>
-              My Pickups
-            </button>
-          </nav>
-        </div>
-
-        {/* AVAILABLE TAB */}
-        {activeTab === 'available' ? (
-          <div className="grid grid-cols-3 gap-6">
-            {availableDonations.map((donation) => (
-              <div key={donation.id} className="bg-white p-6 rounded-lg shadow">
-
-                {/* ⭐ FIXED — donation.title */}
-                <h3 className="text-lg font-semibold">{donation.title}</h3>
-
-<span className={`inline-block mt-2 px-2 py-1 text-xs rounded ${getStatusColor(donation.status)}`}>
-  {donation.status}
-</span>
-                <p>{donation.description}</p>
-
-                <button
-  disabled={donation.status !== "available"}
-  onClick={() => handleClaimDonation(donation.id)}
-  className={`mt-3 px-4 py-2 rounded text-white ${
-    donation.status === "available"
-      ? "bg-green-600"
-      : "bg-gray-400 cursor-not-allowed"
-  }`}
->
-  {donation.status === "available" ? "Claim Donation" : "Already Claimed"}
-</button>
-              </div>
-            ))}
-          </div>
-        ) : (
-
-          /* MY PICKUPS TAB */
-          <div className="grid grid-cols-3 gap-6">
-  {myPickups.map((pickup) => (
-    <div key={pickup.id} className="bg-white p-6 rounded-lg shadow">
-
-      <h3>{pickup.donation?.title}</h3>
-
-      <span className={getStatusColor(pickup.donation?.status)}>
-        {pickup.donation?.status}
-      </span>
-
-      <p>{pickup.donation?.description}</p>
-
-      {/* ✅ Donor Info */}
-      <p className="mt-2 text-sm">
-        Donor: {pickup.donation?.donor_name || "Hidden"}
-      </p>
-
-      <p className="text-sm">
-        Phone: {pickup.donation?.donor_phone || "Hidden"}
-      </p>
-
-      <p className="text-sm">
-        Address: {pickup.donation?.donor_address || "Hidden"}
-      </p>
-
-      <div className="flex gap-2 mt-4">
 
         <button
-          onClick={() => setSelectedDonation(pickup.donation.id)}
-          className="bg-blue-600 text-white px-3 py-2 rounded"
+          onClick={() => signOut()}
+          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded w-full sm:w-auto"
         >
-          <Eye size={16}/> Track
+          Sign Out
         </button>
-
-        {/* ✅ OTP BUTTON */}
-        {pickup.donation?.status === "claimed" && (
-          <button
-            onClick={() => setOtpDonationId(pickup.donation.id)}
-            className="bg-purple-600 text-white px-3 py-2 rounded"
-          >
-            Verify OTP
-          </button>
-        )}
-
-        {pickup.donation?.status !== 'delivered' && (
-          <button
-            onClick={() => setSelectedPickup(pickup.id)}
-            className="bg-green-600 text-white px-3 py-2 rounded"
-          >
-            <TrendingUp size={16}/> Update
-          </button>
-        )}
-
       </div>
-    </div>
-  ))}
-</div>
-        )}
+    </nav>
+
+    <div className="max-w-7xl mx-auto px-4 py-6 sm:py-8">
+
+      {/* TABS */}
+      <div className="mb-6 border-b overflow-x-auto">
+        <nav className="flex gap-4 sm:gap-8 min-w-max">
+
+          <button
+            onClick={() => setActiveTab('available')}
+            className={`pb-2 text-sm sm:text-base font-medium ${
+              activeTab === 'available'
+                ? 'border-b-2 border-green-600 text-green-600'
+                : 'text-gray-600'
+            }`}
+          >
+            Available Donations
+          </button>
+
+          <button
+            onClick={() => setActiveTab('my-pickups')}
+            className={`pb-2 text-sm sm:text-base font-medium ${
+              activeTab === 'my-pickups'
+                ? 'border-b-2 border-green-600 text-green-600'
+                : 'text-gray-600'
+            }`}
+          >
+            My Pickups
+          </button>
+        </nav>
       </div>
 
-      {selectedDonation && (
-        <TrackingModal donationId={selectedDonation} onClose={() => setSelectedDonation(null)} />
+      {/* AVAILABLE TAB */}
+      {activeTab === 'available' ? (
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {availableDonations.map((donation) => (
+
+            <div
+              key={donation.id}
+              className="bg-white p-4 sm:p-6 rounded-lg shadow hover:shadow-lg transition"
+            >
+
+              <h3 className="text-lg font-semibold break-words">
+                {donation.title}
+              </h3>
+
+              <span
+                className={`inline-block mt-2 px-2 py-1 text-xs rounded ${getStatusColor(
+                  donation.status
+                )}`}
+              >
+                {donation.status}
+              </span>
+
+              <p className="mt-3 text-sm sm:text-base text-gray-700 break-words">
+                {donation.description}
+              </p>
+
+              <button
+                disabled={donation.status !== "available"}
+                onClick={() => handleClaimDonation(donation.id)}
+                className={`mt-4 w-full px-4 py-2 rounded text-white transition ${
+                  donation.status === "available"
+                    ? "bg-green-600 hover:bg-green-700"
+                    : "bg-gray-400 cursor-not-allowed"
+                }`}
+              >
+                {donation.status === "available"
+                  ? "Claim Donation"
+                  : "Already Claimed"}
+              </button>
+            </div>
+          ))}
+        </div>
+
+      ) : (
+
+        /* MY PICKUPS TAB */
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {myPickups.map((pickup) => (
+
+            <div
+              key={pickup.id}
+              className="bg-white p-4 sm:p-6 rounded-lg shadow hover:shadow-lg transition"
+            >
+
+              <h3 className="text-lg font-semibold break-words">
+                {pickup.donation?.title}
+              </h3>
+
+              <span
+                className={`inline-block mt-2 px-2 py-1 text-xs rounded ${getStatusColor(
+                  pickup.donation?.status
+                )}`}
+              >
+                {pickup.donation?.status}
+              </span>
+
+              <p className="mt-3 text-sm sm:text-base text-gray-700 break-words">
+                {pickup.donation?.description}
+              </p>
+
+              {/* DONOR INFO */}
+              <div className="mt-4 space-y-1 text-sm text-gray-700">
+
+                <p className="break-words">
+                  <span className="font-semibold">Donor:</span>{" "}
+                  {pickup.donation?.donor_name || "Hidden"}
+                </p>
+
+                <p className="break-words">
+                  <span className="font-semibold">Phone:</span>{" "}
+                  {pickup.donation?.donor_phone || "Hidden"}
+                </p>
+
+                <p className="break-words">
+                  <span className="font-semibold">Address:</span>{" "}
+                  {pickup.donation?.donor_address || "Hidden"}
+                </p>
+              </div>
+
+              {/* BUTTONS */}
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-5">
+
+                <button
+                  onClick={() => setSelectedDonation(pickup.donation.id)}
+                  className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded w-full sm:w-auto"
+                >
+                  <Eye size={16} />
+                  Track
+                </button>
+
+                {pickup.donation?.status === "claimed" && (
+                  <button
+                    onClick={() => setOtpDonationId(pickup.donation.id)}
+                    className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded w-full sm:w-auto"
+                  >
+                    Verify OTP
+                  </button>
+                )}
+
+                {pickup.donation?.status !== "delivered" && (
+                  <button
+                    onClick={() => setSelectedPickup(pickup.id)}
+                    className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded w-full sm:w-auto"
+                  >
+                    <TrendingUp size={16} />
+                    Update
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       )}
+    </div>
 
-      {selectedPickup && (
-        <UpdateStatusModal pickupId={selectedPickup} onClose={() => {
+    {/* MODALS */}
+    {selectedDonation && (
+      <TrackingModal
+        donationId={selectedDonation}
+        onClose={() => setSelectedDonation(null)}
+      />
+    )}
+
+    {selectedPickup && (
+      <UpdateStatusModal
+        pickupId={selectedPickup}
+        onClose={() => {
           setSelectedPickup(null);
           loadData();
-        }} />
-      )}
+        }}
+      />
+    )}
 
-{otpDonationId !== null && (
-  <OtpModal
-    donationId={otpDonationId}
-    onClose={() => setOtpDonationId(null)}
-    onSuccess={() => loadData()}
-  />
-)}
-    </div>
-    
-  );
-}
+    {otpDonationId !== null && (
+      <OtpModal
+        donationId={otpDonationId}
+        onClose={() => setOtpDonationId(null)}
+        onSuccess={() => loadData()}
+      />
+    )}
+  </div>
+);
