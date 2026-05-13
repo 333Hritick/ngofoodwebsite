@@ -9,6 +9,11 @@ from api.serializers import PickupSerializer
 from api.permissions import IsNGO
 
 import random
+import resend
+import os
+
+# ✅ Resend API Key
+resend.api_key = os.getenv("RESEND_API_KEY")
 
 
 # =========================
@@ -96,11 +101,24 @@ class ClaimDonationView(APIView):
             ngo=request.user
         )
 
-        # ✅ OTP Debug
-        print("================================")
-        print("OTP FOR DONOR:", otp)
-        print("DONOR EMAIL:", donation.donor.email)
-        print("================================")
+        # ✅ Send OTP Email using Resend
+        try:
+            print("===== RESEND EMAIL START =====")
+            print("RESEND API KEY:", os.getenv("RESEND_API_KEY"))
+
+            r = resend.Emails.send({
+                "from": "onboarding@resend.dev",
+                "to":  "hritickkumar3138@gmail.com",
+                "subject": "FoodShare Pickup OTP",
+                "text":f"Your OTP for pickup is: {otp}"
+            })
+
+            print("EMAIL SENT:", r)
+
+        except Exception as e:
+            print("EMAIL ERROR:", repr(e))
+
+        print("===== RESEND EMAIL END =====")
 
         # ✅ Tracking
         ngo_profile = getattr(request.user, "profile", None)
