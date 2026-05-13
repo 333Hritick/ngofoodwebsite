@@ -104,12 +104,13 @@ class ClaimDonationView(APIView):
         # ✅ Send OTP Email using Resend
         try:
             print("===== RESEND EMAIL START =====")
+            print("RESEND API KEY:", os.getenv("RESEND_API_KEY"))
 
             r = resend.Emails.send({
                 "from": "onboarding@resend.dev",
                 "to":  "rkrohitsharma2626@gmail.com",
                 "subject": "FoodShare Pickup OTP",
-                "text":"Your OTP for pickup is: {otp}"
+                "text":f"Your OTP for pickup is: {otp}"
             })
 
             print("EMAIL SENT:", r)
