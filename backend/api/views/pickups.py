@@ -108,7 +108,7 @@ class ClaimDonationView(APIView):
 
             r = resend.Emails.send({
                 "from": "onboarding@resend.dev",
-                "to":  "hritickkumar3138@gmail.com",
+                "to":  "donation.donor.email",
                 "subject": "FoodShare Pickup OTP",
                 "text":f"Your OTP for pickup is: {otp}"
             })
