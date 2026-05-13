@@ -1,14 +1,19 @@
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
-from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.db import transaction
+
 from api.models import Pickup, FoodDonation, TrackingUpdate
 from api.serializers import PickupSerializer
 from api.permissions import IsNGO
-from django.core.mail import send_mail
+
 import random
+import resend
+import os
+
+# ✅ Resend API Key
+resend.api_key = os.getenv("RESEND_API_KEY")
 
 
 # =========================
@@ -22,7 +27,9 @@ class PickupViewSet(viewsets.ReadOnlyModelViewSet):
         user = self.request.user
 
         if user.role == 'ngo':
-            return Pickup.objects.filter(ngo=user).select_related(
+            return Pickup.objects.filter(
+                ngo=user
+            ).select_related(
                 'donation__donor__profile',
                 'ngo__profile'
             )
@@ -94,38 +101,23 @@ class ClaimDonationView(APIView):
             ngo=request.user
         )
 
-        # ✅ Send OTP Email
+        # ✅ Send OTP Email using Resend
         try:
-            print("===== EMAIL DEBUG START =====")
-            print("EMAIL USER:", settings.EMAIL_HOST_USER)
-            print("RECIPIENT:", donation.donor.email)
+            print("===== RESEND EMAIL START =====")
 
-            result = send_mail(
-                subject="FoodShare Pickup OTP",
-                message=f"""
-Hello,
+            r = resend.Emails.send({
+                "from": "onboarding@resend.dev",
+                "to": donation.donor.email,
+                "subject": "FoodShare Pickup OTP",
+                "text": f"Your OTP for pickup is: {otp}"
+            })
 
-Your FoodShare pickup verification OTP is:
-
-{otp}
-
-Please share this OTP with NGO only after food pickup.
-
-Thank you,
-FoodShare Team
-""",
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[donation.donor.email],
-                fail_silently=True
-            )
-
-            print("SEND MAIL RESULT:", result)
-            print("EMAIL SENT SUCCESSFULLY")
+            print("EMAIL SENT:", r)
 
         except Exception as e:
-            print("FULL EMAIL ERROR:", repr(e))
+            print("EMAIL ERROR:", repr(e))
 
-        print("===== EMAIL DEBUG END =====")
+        print("===== RESEND EMAIL END =====")
 
         # ✅ Tracking
         ngo_profile = getattr(request.user, "profile", None)
