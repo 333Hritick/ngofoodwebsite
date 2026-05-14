@@ -177,14 +177,19 @@ class VolunteerRegisterView(APIView):
                 email=request.data.get("email"),
                 defaults={
                     "username": request.data.get("email"),
-                    "full_name": request.data.get("name"),
-                    "role": "volunteer"
+                    "role": "donor"
                 }
             )
 
             if created:
                 user.set_password("temp12345")
                 user.save()
+
+            # ✅ Save full name in Profile
+            profile = user.profile
+            profile.full_name = request.data.get("name")
+            profile.phone = request.data.get("phone")
+            profile.save()
 
             volunteer_profile, created = VolunteerProfile.objects.get_or_create(
                 user=user
