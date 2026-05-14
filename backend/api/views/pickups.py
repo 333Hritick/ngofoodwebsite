@@ -105,6 +105,7 @@ class ClaimDonationView(APIView):
         try:
             print("===== RESEND EMAIL START =====")
             print("RESEND API KEY:", os.getenv("RESEND_API_KEY"))
+            print("DONOR EMAIL:", donation.donor.email)
 
             r = resend.Emails.send({
                 "from": "onboarding@resend.dev",
