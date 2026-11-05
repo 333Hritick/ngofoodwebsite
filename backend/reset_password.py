@@ -8,11 +8,11 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-user = User.objects.get(username="santosh123")
+user = User.objects.get(username="hritick3138kumar")
 
-user.set_password("12345678")
+user.set_password("3138hritick@2626")
 user.is_superuser = True
 user.is_staff = True
 user.save()
 
-print("PASSWORD SET TO 12345678")
+
