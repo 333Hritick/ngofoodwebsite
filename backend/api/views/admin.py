@@ -110,17 +110,25 @@ class AdminLoginView(APIView):
         username = request.data.get("username")
         password = request.data.get("password")
 
-        user = authenticate(username=username, password=password)
+        try:
+            user = User.objects.get(username=username)
 
-        if user and user.is_superuser:
+            print("USER FOUND:", user.username)
+            print("PASSWORD OK:", user.check_password(password))
+            print("IS SUPERUSER:", user.is_superuser)
 
-            refresh = RefreshToken.for_user(user)
+            if user.check_password(password) and user.is_superuser:
 
-            return Response({
-                "access": str(refresh.access_token),
-                "refresh": str(refresh),
-                "username": user.username
-            })
+                refresh = RefreshToken.for_user(user)
+
+                return Response({
+                    "access": str(refresh.access_token),
+                    "refresh": str(refresh),
+                    "username": user.username
+                })
+
+        except User.DoesNotExist:
+            print("USER NOT FOUND")
 
         return Response(
             {"error": "Invalid admin credentials"},
