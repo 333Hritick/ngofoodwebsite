@@ -99,16 +99,19 @@ class AdminDonationsView(APIView):
         return Response(serializer.data)
 
 
-# ADMIN LOGIN
-class AdminLoginView(APIView):
+# ADMIN LOGINclass AdminLoginView(APIView):
 
     authentication_classes = []
     permission_classes = [AllowAny]
 
     def post(self, request):
 
+        print("REQUEST DATA:", request.data)
+
         username = request.data.get("username")
         password = request.data.get("password")
+
+        print("USERNAME RECEIVED:", username)
 
         try:
             user = User.objects.get(username=username)
@@ -134,7 +137,6 @@ class AdminLoginView(APIView):
             {"error": "Invalid admin credentials"},
             status=401
         )
-
 
 class AdminPickupsView(APIView):
 
