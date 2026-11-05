@@ -107,18 +107,15 @@ class AdminLoginView(APIView):
 
     def post(self, request):
 
-        print("REQUEST DATA:", request.data)
 
         username = request.data.get("username")
         password = request.data.get("password")
 
-        print("USERNAME RECEIVED:", username)
 
         try:
             user = User.objects.get(username=username)
 
             print("USER FOUND:", user.username)
-            print("PASSWORD OK:", user.check_password(password))
             print("IS SUPERUSER:", user.is_superuser)
 
             if user.check_password(password) and user.is_superuser:
@@ -132,7 +129,6 @@ class AdminLoginView(APIView):
                 })
 
         except User.DoesNotExist:
-            print("USER NOT FOUND")
 
         return Response(
             {"error": "Invalid admin credentials"},
