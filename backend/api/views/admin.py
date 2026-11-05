@@ -99,9 +99,8 @@ class AdminDonationsView(APIView):
         return Response(serializer.data)
 
 
-# ADMIN LOGINclass AdminLoginView(APIView):
-
-   class AdminLoginView(APIView):
+# ADMIN LOGIN
+class AdminLoginView(APIView):
 
     authentication_classes = []
     permission_classes = [AllowAny]
