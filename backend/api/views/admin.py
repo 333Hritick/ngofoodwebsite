@@ -101,6 +101,8 @@ class AdminDonationsView(APIView):
 
 # ADMIN LOGINclass AdminLoginView(APIView):
 
+   class AdminLoginView(APIView):
+
     authentication_classes = []
     permission_classes = [AllowAny]
 
